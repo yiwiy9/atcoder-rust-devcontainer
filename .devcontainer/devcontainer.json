@@ -1,0 +1,7 @@
+{
+  "name": "${localWorkspaceFolderBasename}",
+
+  "build": { "dockerfile": "Dockerfile" },
+
+  "runArgs": ["--env-file", ".devcontainer/.env"]
+}
