@@ -8,6 +8,7 @@
         ".devcontainer/.env"
     ],
     "mounts": [
+        "source=${localWorkspaceFolderBasename}-bashhistory,target=/commandhistory,type=volume",
         "source=${localWorkspaceFolderBasename}-target,target=${containerWorkspaceFolder}/target,type=volume"
     ],
     "postCreateCommand": "entrypoint.sh",
