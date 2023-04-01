@@ -1,4 +1,6 @@
-FROM rust:1.68-buster
+FROM rust:1.68-bullseye
 
-RUN cargo install cargo-compete && \
-    rustup toolchain install 1.42.0
+RUN rustup toolchain install 1.42.0 && \
+    rustup component add rustfmt clippy && \
+    cargo install cargo-compete
+

@@ -1,7 +1,30 @@
 {
-  "name": "${localWorkspaceFolderBasename}",
-
-  "build": { "dockerfile": "Dockerfile" },
-
-  "runArgs": ["--env-file", ".devcontainer/.env"]
+    "name": "${localWorkspaceFolderBasename}",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "runArgs": [
+        "--env-file",
+        ".devcontainer/.env"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "streetsidesoftware.code-spell-checker",
+                "EditorConfig.EditorConfig",
+                "mosapride.zenkaku",
+                "mhutchie.git-graph",
+                "eamodio.gitlens",
+                "bierner.markdown-preview-github-styles",
+                "DavidAnson.vscode-markdownlint",
+                "rust-lang.rust-analyzer",
+                "bungcip.better-toml",
+                "vadimcn.vscode-lldb"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "rust-analyzer.check.command": "clippy"
+            }
+        }
+    }
 }
