@@ -7,6 +7,10 @@
         "--env-file",
         ".devcontainer/.env"
     ],
+    "mounts": [
+        "source=${localWorkspaceFolderBasename}-target,target=${containerWorkspaceFolder}/target,type=volume"
+    ],
+    "postCreateCommand": "entrypoint.sh",
     "customizations": {
         "vscode": {
             "extensions": [
