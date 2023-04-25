@@ -10,6 +10,14 @@ Copy the `.devcontainer/.env.example` file to `.devcontainer/.env` and customize
 
 ## Key Files and Usage
 
+### `entrypoint.sh`
+
+This script initializes the development environment by performing the following actions:
+
+1. Copies the example VS Code settings file for rust-analyzer to the appropriate location, if it doesn't already exist.
+1. Generates Rust code snippets using snippet.sh.
+1. Automatically signs in to the AtCoder website using the provided username and password.
+
 ### `snippet.sh`
 
 This script generates Rust code snippets for Visual Studio Code, tailored for competitive programming. It allows you to create custom snippets in the src/lib directory and make them available for use within Visual Studio Code.
