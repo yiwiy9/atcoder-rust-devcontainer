@@ -11,7 +11,8 @@ Cargo.lock
 
 # Ignore user settings file
 .env
-/.vscode/settings.json
+/.vscode/
 
 # Ignore source code files
-/src/
+/src/contest/*
+/src/lib/src/*

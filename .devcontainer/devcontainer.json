@@ -10,6 +10,9 @@
         "--env-file",
         ".devcontainer/.env"
     ],
+    "containerEnv": {
+        "WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
+    },
     "postCreateCommand": "entrypoint.sh",
     "customizations": {
         "vscode": {
