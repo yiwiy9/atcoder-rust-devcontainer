@@ -113,6 +113,15 @@ path = "./src/contest/{{ contest }}"
 #url = "https://atcoder.jp/contests/{{ id }}"
 #path = "./{{ contest }}"
 
+# for atcoder
+[add]
+url = 'https://atcoder.jp/contests/{{ args[0] }}/tasks/{{ args[0] }}_{{ args[1] }}'
+#is-contest = ["false"] # optional
+#target-kind = "bin" # ["bin", "example"]. default to "bin"
+bin-name = '{{ args[0] }}-{{ args[1] }}'
+bin-alias = '{{ args[0] }}_{{ args[1] }}' # optional
+# bin-src-path = './src/bin/{{ bin_alias }}.rs' # optional
+
 # for Library-Checker
 #[add]
 #url = "https://judge.yosupo.jp/problem/{{ args[0] }}"
