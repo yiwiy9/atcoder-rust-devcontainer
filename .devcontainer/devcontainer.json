@@ -25,7 +25,7 @@
                 "bierner.markdown-preview-github-styles",
                 "DavidAnson.vscode-markdownlint",
                 "rust-lang.rust-analyzer",
-                "bungcip.better-toml",
+                "tamasfe.even-better-toml",
                 "vadimcn.vscode-lldb"
             ],
             "settings": {
