@@ -164,7 +164,8 @@ bin-alias = '{{ args[0] }}_{{ args[1] }}' # optional
 
 [test]
 # Toolchain for the test. (optional)
-toolchain = "1.70.0"
+# toolchain = "1.42.0" # Rust 1.42.0
+toolchain = "1.70.0" # Rust 1.70.0
 # Profile for `cargo build`. ("dev" | "release")
 #
 # Defaults to `"dev"`.
