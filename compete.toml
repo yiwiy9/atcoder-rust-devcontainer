@@ -137,12 +137,12 @@ path = "./src/contest/{{ contest }}"
 
 # for atcoder
 [add]
-url = 'https://atcoder.jp/contests/{{ args[0] }}/tasks/{{ args[0] }}_{{ args[1] }}'
+url = 'https://atcoder.jp/contests/{{ args[0] | split: "_" | first }}/tasks/{{ args[0] }}'
 #is-contest = ["false"] # optional
 #target-kind = "bin" # ["bin", "example"]. default to "bin"
-bin-name = '{{ args[0] }}-{{ args[1] }}'
-bin-alias = '{{ args[0] }}_{{ args[1] }}' # optional
-# bin-src-path = './src/bin/{{ bin_alias }}.rs' # optional
+bin-name = '{{ args[0] | replace: "_", "-" }}'
+bin-alias = '{{ args[0] }}'                    # optional
+# bin-src-path = './src/bin/{{ args[0] }}.rs' # optional
 
 # for Library-Checker
 #[add]
