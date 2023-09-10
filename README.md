@@ -84,3 +84,7 @@ This updates the `rust.code-snippets` file in the `.vscode` directory, making yo
     - `cargo compete test abc317_a`
 1. 📤 **Submit your solution**:
     - `cargo compete submit abc317_a`
+
+## 📜 License
+
+This project is dual-licensed under MIT or Apache-2.0. For more details, see [LICENSE-MIT](LICENSE-MIT) and [LICENSE-APACHE](LICENSE-APACHE).
