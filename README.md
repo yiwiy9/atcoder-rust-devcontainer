@@ -1,4 +1,4 @@
-# 🏆 AtCoder Rust Devcontainer
+# 🏆🦀 AtCoder Rust Devcontainer
 
 ## 🌐 Overview
 
