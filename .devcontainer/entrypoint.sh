@@ -8,7 +8,7 @@ if [ ! -f "$settings_json" ]; then
 fi
 
 # Generate Rust code snippets
-snippet.sh
+cargo_snippet.sh
 
 # Sign in automatically for Atcoder website
 cargo compete login atcoder <<EOF
