@@ -51,16 +51,21 @@ This script sets up a new contest directory and updates the rust-analyzer config
 1. 🖥 Open the terminal within the devcontainer.
 1. ▶ Run `cargo_compete_new.sh <contest>` where `<contest>` is the contest's name.
 
-### `create_gitkeep_in_testcases.sh` 🖇
+### `create_gitkeep_in_testcases.sh` 📂
 
-This script is a workaround for the issue detailed in [this PR](https://github.com/qryxip/cargo-compete/pull/198). It automates the creation of `.gitkeep` files within the `in/out` directories of the `cargo compete` testcases, ensuring that these directories are tracked by Git even if they are empty.
+This script is a workaround for the issue detailed in [qryxip/cargo-compete#198](https://github.com/qryxip/cargo-compete/pull/198). It automates the creation of `.gitkeep` files within the `in/out` directories of the `cargo compete` testcases, ensuring that these directories are tracked by Git even if they are empty.
 
 #### 🚀 Usage
 
 1. 🖥 Open the terminal within the devcontainer.
-1. ▶ Run the script by typing `./create_gitkeep_in_testcases.sh <path_to_project_directory>`.
+1. ▶ Run the script by typing `create_gitkeep_in_testcases.sh <path_to_contest_directory>`.
 
-The script will iterate over all `.yml` files in the `<path_to_project_directory>/testcases` directory and ensure that each corresponding `in/out` directory has a `.gitkeep` file.
+The script will iterate over all `.yml` files in the `<path_to_contest_directory>/testcases` directory and ensure that each corresponding `in/out` directory has a `.gitkeep` file.
+
+📝 **Note**:
+
+- When you execute `cargo_compete_new.sh`, the `create_gitkeep_in_testcases.sh` script is automatically run for the new contest directory.
+- If you're using `cargo compete add` to add problems, you'll need to run `create_gitkeep_in_testcases.sh` manually for the specific contest directory.
 
 ### `cargo_snippet.sh` 🖇
 

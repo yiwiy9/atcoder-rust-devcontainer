@@ -13,7 +13,8 @@ cd $WORKSPACE_FOLDER
 # Set variables
 CONTEST=$1
 SETTINGS_JSON_PATH="${WORKSPACE_FOLDER}/.vscode/settings.json"
-CARGO_TOML_PATH="./src/contest/${CONTEST}/Cargo.toml"
+CONTEST_DIRECTORY="./src/contest"
+CARGO_TOML_PATH="${CONTEST_DIRECTORY}/${CONTEST}/Cargo.toml"
 
 # Function to print jq error
 print_jq_error() {
@@ -36,3 +37,6 @@ UPDATED_LINKED_PROJECTS=$(echo $CURRENT_LINKED_PROJECTS | jq ". + [\"$CARGO_TOML
 
 # Update settings.json
 jq ". * {\"rust-analyzer.linkedProjects\": $UPDATED_LINKED_PROJECTS}" $SETTINGS_JSON_PATH > temp_settings.json && mv temp_settings.json $SETTINGS_JSON_PATH || print_jq_error ". * {\"rust-analyzer.linkedProjects\": $UPDATED_LINKED_PROJECTS}"
+
+# Call create_gitkeep_in_testcases.sh
+create_gitkeep_in_testcases.sh ${CONTEST_DIRECTORY}/${CONTEST}
