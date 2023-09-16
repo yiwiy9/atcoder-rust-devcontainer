@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .env file
+      run: |
+        cp .devcontainer/.env.example .devcontainer/.env
+        sed -i "s/your_atcoder_username_here/${{ secrets.ATCODER_USERNAME }}/g" .devcontainer/.env
+        sed -i "s/your_atcoder_password_here/${{ secrets.ATCODER_PASSWORD }}/g" .devcontainer/.env
+
+    - name: Build Devcontainer Docker Image
+      run: docker build .devcontainer -t atcoder-rust-devcontainer:test
+
+    - name: Execute initialization scripts
+      run: docker run --rm atcoder-rust-devcontainer:test
+
+    - name: Test cargo_compete_new.sh
+      run: docker run --rm atcoder-rust-devcontainer:test cargo_compete_new.sh abc317
