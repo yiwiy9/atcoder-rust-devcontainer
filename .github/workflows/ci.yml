@@ -1,28 +1,39 @@
-name: CI
-
+name: 'build'
 on:
+  # pull_request:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
 
-    - name: Setup .env file
-      run: |
-        cp .devcontainer/.env.example .devcontainer/.env
-        sed -i "s/your_atcoder_username_here/${{ secrets.ATCODER_USERNAME }}/g" .devcontainer/.env
-        sed -i "s/your_atcoder_password_here/${{ secrets.ATCODER_PASSWORD }}/g" .devcontainer/.env
+      - name: Checkout (GitHub)
+        uses: actions/checkout@v4
 
-    - name: Build Devcontainer Docker Image
-      run: docker build .devcontainer -t atcoder-rust-devcontainer:test
+      - name: Setup .env file
+        run: |
+          cp .devcontainer/.env.example .devcontainer/.env
+          sed -i "s/your_atcoder_username_here/${{ secrets.ATCODER_USERNAME }}/g" .devcontainer/.env
+          sed -i "s/your_atcoder_password_here/${{ secrets.ATCODER_PASSWORD }}/g" .devcontainer/.env
 
-    - name: Execute initialization scripts
-      run: docker run --rm atcoder-rust-devcontainer:test
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Test cargo_compete_new.sh
-      run: docker run --rm atcoder-rust-devcontainer:test cargo_compete_new.sh abc317
+      - name: Build and run Dev Container task
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: ghcr.io/yiwiy9/atcoder-rust-devcontainer
+          runCmd: |
+            cargo_compete_new.sh abc317
+            cd $WORKSPACE_FOLDER/src/contest/abc317/
+            cargo compete test a
+            cd $WORKSPACE_FOLDER/src/contest/problems/
+            cargo compete add abc317_a
+            cargo compete test abc317_a
