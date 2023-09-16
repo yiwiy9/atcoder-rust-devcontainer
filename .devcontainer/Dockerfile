@@ -11,6 +11,4 @@ RUN apt-get update && \
 
 COPY ./entrypoint.sh ./cargo_compete_new.sh ./cargo_snippet.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/entrypoint.sh && \
-    chmod +x /usr/local/bin/cargo_compete_new.sh && \
-    chmod +x /usr/local/bin/cargo_snippet.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/cargo_compete_new.sh /usr/local/bin/cargo_snippet.sh

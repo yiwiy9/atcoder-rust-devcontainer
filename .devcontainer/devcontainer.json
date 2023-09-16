@@ -17,13 +17,7 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "streetsidesoftware.code-spell-checker",
                 "EditorConfig.EditorConfig",
-                "mosapride.zenkaku",
-                "mhutchie.git-graph",
-                "eamodio.gitlens",
-                "bierner.markdown-preview-github-styles",
-                "DavidAnson.vscode-markdownlint",
                 "rust-lang.rust-analyzer",
                 "tamasfe.even-better-toml",
                 "vadimcn.vscode-lldb"
