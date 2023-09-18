@@ -31,18 +31,15 @@ jobs:
         with:
           imageName: ghcr.io/yiwiy9/atcoder-rust-devcontainer
           runCmd: |
-            # Grant execute permission for scripts
-            chmod +x $WORKSPACE_FOLDER/.github/scripts/**
-
             # Testing "cargo_compete_new.sh"
             cargo_compete_new.sh abc317
             cd $WORKSPACE_FOLDER/src/contest/abc317/
-            $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh a.rs
+            $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh src/bin/a.rs
             cargo compete test a
 
             # Testing "cargo compete add"
             cargo_compete_new.sh practice
             cd $WORKSPACE_FOLDER/src/contest/practice/
             cargo compete add abc317_a
-            $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh abc317_a.rs
+            $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh src/bin/abc317_a.rs
             cargo compete test abc317_a
