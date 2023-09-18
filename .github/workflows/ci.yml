@@ -31,27 +31,15 @@ jobs:
         with:
           imageName: ghcr.io/yiwiy9/atcoder-rust-devcontainer
           runCmd: |
-            # Function to Overwrite ABC317 Problem A Solution in Rust
-            overwrite_abc317_a_solution() {
-              cat > "$1" <<-EOF
-              use proconio::input;
-              use superslice::*;
-              fn main() {
-                  input! { n: usize,h: usize,x: usize,p: [usize; n] };
-                  println!("{}", p.lower_bound(&(x - h)) + 1);
-              }
-              EOF
-            }
-
             # Testing "cargo_compete_new.sh"
             cargo_compete_new.sh abc317
             cd $WORKSPACE_FOLDER/src/contest/abc317/
-            overwrite_abc317_a_solution a.rs
+            $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh a.rs
             cargo compete test a
 
             # Testing "cargo compete add"
             cargo_compete_new.sh practice
             cd $WORKSPACE_FOLDER/src/contest/practice/
             cargo compete add abc317_a
-            overwrite_abc317_a_solution abc317_a.rs
+            $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh abc317_a.rs
             cargo compete test abc317_a
