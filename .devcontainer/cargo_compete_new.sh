@@ -13,7 +13,7 @@ cd $WORKSPACE_FOLDER
 # Set variables
 contest=$1
 settings_json_path="$WORKSPACE_FOLDER/.vscode/settings.json"
-contest_directory="$WORKSPACE_FOLDER/src/contest"
+contest_directory="./src/contest"
 cargo_toml_path="$contest_directory/$contest/Cargo.toml"
 
 # Function to print jq error
