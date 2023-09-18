@@ -33,7 +33,7 @@ jobs:
           runCmd: |
             # Function to Overwrite ABC317 Problem A Solution in Rust
             overwrite_abc317_a_solution() {
-              cat > "$1" <<EOF
+              cat > "$1" <<-EOF
               use proconio::input;
               use superslice::*;
               fn main() {
