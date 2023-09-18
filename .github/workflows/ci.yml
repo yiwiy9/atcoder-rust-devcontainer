@@ -31,6 +31,9 @@ jobs:
         with:
           imageName: ghcr.io/yiwiy9/atcoder-rust-devcontainer
           runCmd: |
+            # Grant execute permission for scripts
+            chmod +x $WORKSPACE_FOLDER/.github/scripts/**
+
             # Testing "cargo_compete_new.sh"
             cargo_compete_new.sh abc317
             cd $WORKSPACE_FOLDER/src/contest/abc317/
