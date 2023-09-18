@@ -1,8 +1,14 @@
 #!/bin/bash
 
-# Create VS Code settings file for rust-analyzer if it doesn't exist
-settings_json="$WORKSPACE_FOLDER/.vscode/settings.json"
-example_json="$WORKSPACE_FOLDER/.devcontainer/settings.exapmle.json"
+# Define paths for VS Code settings
+vscode_directory="$WORKSPACE_FOLDER/.vscode"
+settings_json="$vscode_directory/settings.json"
+example_json="$WORKSPACE_FOLDER/.devcontainer/settings.example.json"
+
+# Ensure the .vscode directory exists
+mkdir -p "$vscode_directory"
+
+# If settings.json doesn't exist, copy from the example settings
 if [ ! -f "$settings_json" ]; then
     cp "$example_json" "$settings_json"
 fi
