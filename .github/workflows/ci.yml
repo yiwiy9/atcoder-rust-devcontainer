@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+
     steps:
 
       - name: Checkout (GitHub)
@@ -29,7 +33,7 @@ jobs:
       - name: Build and run Dev Container task
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/yiwiy9/atcoder-rust-devcontainer
+          imageName: ghcr.io/${{ github.repository }}
           runCmd: |
             # Testing "cargo_compete_new.sh"
             cargo_compete_new.sh abc317
