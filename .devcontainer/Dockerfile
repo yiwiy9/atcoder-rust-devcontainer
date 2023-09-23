@@ -9,8 +9,6 @@ RUN apt-get update && \
     cargo install cargo-compete && \
     cargo install cargo-snippet --features="binaries"
 
-COPY ./entrypoint.sh ./cargo_compete_new.sh ./snippet.sh /usr/local/bin/
+COPY ./entrypoint.sh ./cargo_compete_new.sh ./create_gitkeep_in_testcases.sh ./cargo_snippet.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/entrypoint.sh && \
-    chmod +x /usr/local/bin/cargo_compete_new.sh && \
-    chmod +x /usr/local/bin/snippet.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/cargo_compete_new.sh /usr/local/bin/create_gitkeep_in_testcases.sh /usr/local/bin/cargo_snippet.sh

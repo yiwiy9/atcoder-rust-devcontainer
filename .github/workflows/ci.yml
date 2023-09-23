@@ -1,0 +1,49 @@
+name: CI
+on:
+  # pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+
+    steps:
+
+      - name: Checkout (GitHub)
+        uses: actions/checkout@v4
+
+      - name: Setup .env file
+        run: |
+          cp .devcontainer/.env.example .devcontainer/.env
+          sed -i "s/your_atcoder_username_here/${{ secrets.ATCODER_USERNAME }}/g" .devcontainer/.env
+          sed -i "s/your_atcoder_password_here/${{ secrets.ATCODER_PASSWORD }}/g" .devcontainer/.env
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and run Dev Container task
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: ghcr.io/${{ github.repository }}
+          runCmd: |
+            # Testing "cargo_compete_new.sh"
+            cargo_compete_new.sh abc317
+            cd $WORKSPACE_FOLDER/src/contest/abc317/
+            $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh src/bin/a.rs
+            cargo compete test a
+
+            # Testing "cargo compete add"
+            cargo_compete_new.sh practice
+            cd $WORKSPACE_FOLDER/src/contest/practice/
+            cargo compete add abc317_a
+            $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh src/bin/abc317_a.rs
+            cargo compete test abc317_a
