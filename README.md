@@ -1,5 +1,8 @@
 # 🏆🦀 AtCoder Rust Devcontainer
 
+[![CI](https://github.com/yiwiy9/atcoder-rust-devcontainer/actions/workflows/ci.yml/badge.svg)](https://github.com/yiwiy9/atcoder-rust-devcontainer/actions)
+[![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT_OR_Apache--2.0-blue)](#license)
+
 ## 🌐 Overview
 
 The `atcoder-rust-devcontainer` repository offers a tailored development environment for competitive programming in the Rust language, specifically for AtCoder contests. Utilizing a devcontainer setup, it simplifies the task of setting up and diving straight into coding challenges without the usual overhead of environment configuration.
