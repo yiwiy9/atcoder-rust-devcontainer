@@ -13,6 +13,12 @@ if [ ! -f "$settings_json" ]; then
     cp "$example_json" "$settings_json"
 fi
 
+# Define the path for lib.rs and check its existence
+lib_rs_path="$WORKSPACE_FOLDER/src/lib/src/lib.rs"
+if [ ! -f "$lib_rs_path" ]; then
+    touch "$lib_rs_path"
+fi
+
 # Generate Rust code snippets
 cargo_snippet.sh
 
