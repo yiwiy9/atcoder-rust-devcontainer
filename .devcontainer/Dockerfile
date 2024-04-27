@@ -6,7 +6,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rustup toolchain install 1.42.0 && \
     rustup component add rustfmt clippy && \
-    cargo install cargo-compete && \
+    cargo install cargo-compete --locked && \
     cargo install cargo-snippet --features="binaries"
 
 COPY ./entrypoint.sh ./cargo_compete_new.sh ./create_gitkeep_in_testcases.sh ./cargo_snippet.sh /usr/local/bin/
