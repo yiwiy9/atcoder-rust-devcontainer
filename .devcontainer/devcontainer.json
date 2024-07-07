@@ -24,7 +24,11 @@
             ],
             "settings": {
                 "editor.formatOnSave": true,
-                "rust-analyzer.check.command": "clippy"
+                "rust-analyzer.check.command": "clippy",
+                "rust-analyzer.checkOnSave.extraArgs": [
+                    "--target-dir",
+                    "${containerWorkspaceFolder}/target"
+                ]
             }
         }
     }
