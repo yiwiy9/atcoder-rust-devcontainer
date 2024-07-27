@@ -18,7 +18,7 @@
         "vscode": {
             "extensions": [
                 "EditorConfig.EditorConfig",
-                "rust-lang.rust-analyzer",
+                "rust-lang.rust-analyzer@0.3.2029", // Compatible with Rust 1.70
                 "tamasfe.even-better-toml",
                 "vadimcn.vscode-lldb"
             ],
