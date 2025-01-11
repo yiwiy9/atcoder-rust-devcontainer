@@ -136,12 +136,12 @@ path = "./src/contest/{{ contest }}"
 #path = "./{{ contest }}"
 
 # for atcoder
-[add]
-url = 'https://atcoder.jp/contests/{{ args[0] | split: "_" | first }}/tasks/{{ args[0] }}'
+# [add]
+# url = 'https://atcoder.jp/contests/{{ args[0] | split: "_" | first }}/tasks/{{ args[0] }}'
 #is-contest = ["false"] # optional
 #target-kind = "bin" # ["bin", "example"]. default to "bin"
-bin-name = '{{ args[0] | replace: "_", "-" }}'
-bin-alias = '{{ args[0] }}'                    # optional
+# bin-name = '{{ args[0] | replace: "_", "-" }}'
+# bin-alias = '{{ args[0] }}'                    # optional
 # bin-src-path = './src/bin/{{ args[0] }}.rs' # optional
 
 # for Library-Checker
@@ -154,13 +154,20 @@ bin-alias = '{{ args[0] }}'                    # optional
 ##bin-src-path = './src/bin/{{ bin_alias }}.rs' # optional
 
 # for yukicoder
-#[add]
-#url = '{% case args[0] %}{% when "contest" %}https://yukicoder.me/contests/{{ args[1] }}{% when "problem" %}https://yukicoder.me/problems/no/{{ args[1] }}{% endcase %}'
+# [add]
+# url = 'https://yukicoder.me/problems/no/{{ args[0] }}'
 #is-contest = ["bash", "-c", '[[ $(cut -d / -f 4) == "contests" ]]'] # optional
 ##target-kind = "bin" # ["bin", "example"]. default to "bin"
-#bin-name = '{% assign segments = url | split: "/" %}{{ segments[5] }}'
-##bin-alias = '{% assign segments = url | split: "/" %}{{ segments[5] }}' # optional
+# bin-name = '{{ args[0] }}_yukicoder'
+# bin-alias = '{{ args[0] }}' # optional
 ##bin-src-path = './src/bin/{{ bin_alias }}.rs' # optional
+
+# Uses yukicoder configuration if the second argument is "yukicoder",
+# otherwise defaults to atcoder
+[add]
+url = '{% if args.size > 1 and args[1] == "yukicoder" %}https://yukicoder.me/problems/no/{{ args[0] }}{% else %}https://atcoder.jp/contests/{{ args[0] | split: "_" | first }}/tasks/{{ args[0] }}{% endif %}'
+bin-name = '{% if args.size > 1 and args[1] == "yukicoder" %}{{ args[0] }}_yukicoder{% else %}{{ args[0] | replace: "_", "-" }}{% endif %}'
+bin-alias = '{{ args[0] }}'
 
 [test]
 # Toolchain for the test. (optional)
@@ -176,6 +183,7 @@ kind = "file"
 path = "{{ src_path }}"
 # language_id = "4050" # Rust 1.42.0
 language_id = "5054" # Rust 1.70.0
+# language_id = "rust" # for yukicoder
 
 #[submit]
 #kind = "command"

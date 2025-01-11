@@ -104,6 +104,59 @@ This updates the `rust.code-snippets` file in the `.vscode` directory, making yo
 1. 📤 **Submit your solution**:
     - `cargo compete submit abc317_a`
 
+### 🌟 Yukicoder Support
+
+This setup also supports solving problems from [yukicoder](https://yukicoder.me). Follow these steps to set up your environment and submit your solutions:
+
+#### ⚠ Important Note: Differences in Execution Environments
+
+The execution environments for AtCoder and yukicoder are different. While AtCoder allows the use of most Rust crates, yukicoder imposes stricter restrictions on the available crates. Before using a crate in your solution, ensure it is supported in yukicoder's environment. You can refer to yukicoder's [execution environment documentation](https://yukicoder.me/help/environments) for details.
+
+#### 📋 Setting Up for Yukicoder
+
+1. **Environment Variable**:
+   - If you'd like to use the Yukicoder API, set the following environment variable in `.devcontainer/.env`:
+
+   ```bash
+   YUKICODER_API_KEY=your_api_key
+   ```
+
+    - This key is optional but necessary if you're using features that rely on the Yukicoder API.
+
+2. **Rebuild the Devcontainer**:
+   After setting the API key, rebuild the devcontainer for the changes to take effect:
+
+   ```bash
+   Ctrl+Shift+P -> Dev Containers: Rebuild Container
+   ```
+
+#### ➕ Adding Problems
+
+To add a yukicoder problem, include `"yukicoder"` as the second argument when using the `add` command:
+
+```bash
+cargo compete add <problem_id> yukicoder
+```
+
+#### 📤 Submission
+
+Before submitting to yukicoder, update the `language_id` in the `[submit]` section of `compete.toml`. Replace the default value with `"rust"`:
+
+```toml
+[submit]
+kind = "file"
+path = "{{ src_path }}"
+# language_id = "4050" # Rust 1.42.0
+# language_id = "5054" # Rust 1.70.0
+language_id = "rust" # for yukicoder
+```
+
+After updating `compete.toml`, you can submit the solution as usual:
+
+```bash
+cargo compete submit <problem_id>
+```
+
 ## 📜 License
 
 This project is dual-licensed under MIT or Apache-2.0. For more details, see [LICENSE-MIT](LICENSE-MIT) and [LICENSE-APACHE](LICENSE-APACHE).
