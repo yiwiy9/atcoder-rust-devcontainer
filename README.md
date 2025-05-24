@@ -28,12 +28,13 @@ The `atcoder-rust-devcontainer` repository offers a tailored development environ
 
 - Copy the `.devcontainer/.env.example` file to `.devcontainer/.env`.
 - Inside the `.devcontainer/.env` file, make sure to set the following:
-  - `ATCODER_USERNAME`: Replace with your AtCoder username.
-  - `ATCODER_PASSWORD`: Replace with your AtCoder password.
+  - `ATCODER_REVEL_SESSION`: Replace with your AtCoder Session Cookie.
 
 After updating the values, you'll need to rebuild the devcontainer for the changes to take effect.
 
 By configuring these values correctly, the devcontainer will be able to automatically sign you into the AtCoder platform upon successful rebuild.
+
+> 💡 How to get your `REVEL_SESSION` cookie: See the [aclogin README (Japanese)](https://github.com/key-moon/aclogin/blob/main/README.md).
 
 ## 🔑 Key Files and Usage
 
@@ -43,7 +44,7 @@ This script initializes the development environment:
 
 1. 🖇 Copies the example VS Code settings file for rust-analyzer to the appropriate location, if it doesn't already exist.
 1. 📝 Generates Rust code snippets using `cargo_snippet.sh`.
-1. 🔒 Automatically signs in to the AtCoder website with the provided username and password.
+1. 🔒 Writes the AtCoder session cookie (`REVEL_SESSION`) and attempts login via `cargo compete login atcoder`.
 
 ### `cargo_compete_new.sh` 📂
 
