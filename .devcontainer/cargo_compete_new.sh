@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Stop on any error
+set -e
+
 # Script requires exactly one argument
 if [ "$#" -ne 1 ]; then
   echo "Error: Exactly one argument required."
@@ -15,28 +18,57 @@ contest=$1
 settings_json_path="$WORKSPACE_FOLDER/.vscode/settings.json"
 contest_directory="./src/contest"
 cargo_toml_path="$contest_directory/$contest/Cargo.toml"
+new_entry="        \"$cargo_toml_path\""
 
-# Function to print jq error
-print_jq_error() {
-  echo "Error: Invalid or unexpected data in settings.json" >&2
-  jq "$1" $settings_json_path
+# --- Step 1: Locate where to insert the new entry in settings.json ---
+# Read the file into an array
+mapfile -t lines < "$settings_json_path"
+insert_line_index=-1
+found_array_start=0
+
+# Search for the rust-analyzer.linkedProjects array and find the closing bracket ]
+for i in "${!lines[@]}"; do
+  line="${lines[$i]}"
+
+  # First, find the line that contains the key
+  if [[ "$line" =~ \"rust-analyzer\.linkedProjects\" ]]; then
+    found_array_start=1
+    continue
+  fi
+
+  # Then, look for the closing bracket ] after we've found the array key
+  if [[ "$found_array_start" -eq 1 && "${line}" =~ ^[[:space:]]*\] ]]; then
+    insert_line_index=$i
+    break
+  fi
+done
+
+# Exit if the insertion point was not found
+if [ "$insert_line_index" -eq -1 ]; then
+  echo "Error: Cannot find rust-analyzer.linkedProjects array in settings.json"
   exit 1
-}
+fi
 
-# Test if the settings.json is a valid JSON
-jq empty $settings_json_path >/dev/null 2>&1 || print_jq_error empty
+# --- Step 2: Generate the contest directory using cargo-compete ---
+# Only continue if cargo compete new succeeds
+cargo compete new "$contest" || exit 1
 
-# Get the current contents of rust-analyzer.linkedProjects
-current_linked_projects=$(jq '.["rust-analyzer.linkedProjects"]' $settings_json_path) || print_jq_error '.["rust-analyzer.linkedProjects"]'
+# --- Step 3: Add the new linked project path to settings.json ---
+# Write to a temporary file, inserting the new line before the closing bracket
+tmpfile=$(mktemp)
+for i in "${!lines[@]}"; do
+  if [ "$i" -eq "$insert_line_index" ]; then
+    echo "$new_entry," >> "$tmpfile"
+  fi
+  echo "${lines[$i]}" >> "$tmpfile"
+done
 
-# Execute 'cargo compete new'
-cargo compete new $contest || exit 1
+# Overwrite the original settings.json with the modified version
+mv "$tmpfile" "$settings_json_path"
 
-# Add the new path
-updated_linked_projects=$(echo $current_linked_projects | jq ". + [\"$cargo_toml_path\"]")
+# Print success message
+echo "✅ Successfully added: $cargo_toml_path to settings.json"
 
-# Update settings.json
-jq ". * {\"rust-analyzer.linkedProjects\": $updated_linked_projects}" $settings_json_path > temp_settings.json && mv temp_settings.json $settings_json_path || print_jq_error ". * {\"rust-analyzer.linkedProjects\": $updated_linked_projects}"
-
+# --- Step 4: Create a .gitkeep file inside the testcases directory ---
 # Call create_gitkeep_in_testcases.sh
 create_gitkeep_in_testcases.sh $contest_directory/$contest
