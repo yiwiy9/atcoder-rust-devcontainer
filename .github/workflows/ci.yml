@@ -34,8 +34,12 @@ jobs:
         with:
           imageName: ghcr.io/${{ github.repository }}
           runCmd: |
-            # Testing "cargo_compete_new.sh"
+            # Testing "cargo_compete_new.sh" with a personal template.
+            cp "$WORKSPACE_FOLDER/.github/fixtures/compete.template.rs" "$WORKSPACE_FOLDER/compete.template.rs"
             cargo_compete_new.sh abc317
+            for source_file in "$WORKSPACE_FOLDER/src/contest/abc317/src/bin/"*.rs; do
+              cmp "$WORKSPACE_FOLDER/compete.template.rs" "$source_file" || exit 1
+            done
             cd $WORKSPACE_FOLDER/src/contest/abc317/
             $WORKSPACE_FOLDER/.github/scripts/overwrite_abc317_a_solution.sh src/bin/a.rs
             cargo compete test a

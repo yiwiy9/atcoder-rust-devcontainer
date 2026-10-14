@@ -55,6 +55,22 @@ This script sets up a new contest directory and updates the rust-analyzer config
 1. 🖥 Open the terminal within the devcontainer.
 1. ▶ Run `cargo_compete_new.sh <contest>` where `<contest>` is the contest's name.
 
+#### Optional source template
+
+Place a complete Rust source file (including imports and `main`) in `compete.template.rs` at the workspace root. The file is ignored by Git and replaces newly generated sources on each `cargo_compete_new.sh` invocation. Without it, the standard template in `compete.toml` is used.
+
+```rust
+// Library snippets: https://github.com/YOUR_USERNAME/YOUR_SNIPPETS_REPOSITORY
+use proconio::input;
+
+fn main() {
+    input! { n: usize }
+    println!("{}", n);
+}
+```
+
+Direct `cargo compete new/add` commands are unaffected. Empty or unreadable templates and existing contest directories are rejected before generation.
+
 ### `create_gitkeep_in_testcases.sh` 📂
 
 This script is a workaround for the issue detailed in [qryxip/cargo-compete#198](https://github.com/qryxip/cargo-compete/pull/198). It automates the creation of `.gitkeep` files within the `in/out` directories of the `cargo compete` testcases, ensuring that these directories are tracked by Git even if they are empty.

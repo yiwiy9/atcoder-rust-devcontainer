@@ -16,6 +16,7 @@ Cargo.lock
 # Ignore user settings file
 .env
 /.vscode/
+/compete.template.rs
 
 # Ignore source code files but track the directories themselves using .gitkeep
 /src/contest/*
